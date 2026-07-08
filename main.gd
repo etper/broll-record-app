@@ -14,12 +14,14 @@ func _on_import_button_pressed():
 	$UI/FileDialog.popup_centered()
 
 
-func _on_file_dialog_file_selected(paths: PackedStringArray):
+func _on_file_dialog_files_selected(paths: PackedStringArray):
 
 	for path in paths:
 
 		# Prevent duplicates
 		var exists := false
+		
+		print("Selected: ", path)
 
 		for broll in brolls:
 			if broll["path"] == path:
