@@ -105,7 +105,9 @@ func _unhandled_input(event):
 		$UI.visible = !$UI.visible
 
 func _on_texture_rect_gui_input(event):
+
 	if event is InputEventMouseButton:
+
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				dragging = true
@@ -113,5 +115,18 @@ func _on_texture_rect_gui_input(event):
 			else:
 				dragging = false
 
+		elif event.pressed:
+			var scale_step := 0.05
+
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				$TextureRect.scale *= 1.0 + scale_step
+
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				$TextureRect.scale *= 1.0 - scale_step
+
 	elif event is InputEventMouseMotion and dragging:
 		$TextureRect.global_position = $TextureRect.get_global_mouse_position() - drag_offset
+
+
+func _on_reset_scale_pressed() -> void:
+	$TextureRect.scale = Vector2.ONE

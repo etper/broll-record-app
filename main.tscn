@@ -27,6 +27,14 @@ offset_right = 822.0
 offset_bottom = 93.0
 text = "Import Broll"
 
+[node name="ResetScale" type="Button" parent="UI" unique_id=871835370]
+layout_mode = 0
+offset_left = 631.0
+offset_top = 105.0
+offset_right = 825.0
+offset_bottom = 166.0
+text = "Reset Scale"
+
 [node name="ItemList" type="ItemList" parent="UI" unique_id=862693527]
 layout_mode = 0
 offset_left = 22.0
@@ -43,5 +51,6 @@ filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.webp")
 
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
 [connection signal="pressed" from="UI/ImportButton" to="." method="_on_import_button_pressed"]
+[connection signal="pressed" from="UI/ResetScale" to="." method="_on_reset_scale_pressed"]
 [connection signal="item_selected" from="UI/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="files_selected" from="UI/FileDialog" to="." method="_on_file_dialog_files_selected"]
