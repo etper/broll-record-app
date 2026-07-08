@@ -41,6 +41,7 @@ file_mode = 1
 access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.webp")
 
+[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
 [connection signal="pressed" from="UI/ImportButton" to="." method="_on_import_button_pressed"]
 [connection signal="item_selected" from="UI/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="files_selected" from="UI/FileDialog" to="." method="_on_file_dialog_files_selected"]

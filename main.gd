@@ -4,6 +4,8 @@ const SAVE_FILE := "user://library.json"
 
 var brolls: Array = []
 
+var dragging := false
+var drag_offset := Vector2.ZERO
 
 func _ready():
 	load_library()
@@ -101,3 +103,15 @@ func load_library():
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_ui"):
 		$UI.visible = !$UI.visible
+
+func _on_texture_rect_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				dragging = true
+				drag_offset = $TextureRect.get_global_mouse_position() - $TextureRect.global_position
+			else:
+				dragging = false
+
+	elif event is InputEventMouseMotion and dragging:
+		$TextureRect.global_position = $TextureRect.get_global_mouse_position() - drag_offset
