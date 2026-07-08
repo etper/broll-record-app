@@ -5,6 +5,14 @@
 [node name="Main" type="Node2D" unique_id=1212255233]
 script = ExtResource("1_ig7tw")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1035097704]
+offset_left = 790.0
+offset_top = 349.0
+offset_right = 1680.0
+offset_bottom = 985.0
+expand_mode = 1
+stretch_mode = 5
+
 [node name="UI" type="Control" parent="." unique_id=1950279507]
 layout_mode = 3
 anchors_preset = 0
@@ -32,13 +40,6 @@ size = Vector2i(1280, 720)
 file_mode = 1
 access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.webp")
-
-[node name="TextureRect" type="TextureRect" parent="UI" unique_id=1035097704]
-layout_mode = 0
-offset_left = 790.0
-offset_top = 349.0
-offset_right = 1680.0
-offset_bottom = 985.0
 
 [connection signal="pressed" from="UI/ImportButton" to="." method="_on_import_button_pressed"]
 [connection signal="item_selected" from="UI/ItemList" to="." method="_on_item_list_item_selected"]

@@ -66,7 +66,7 @@ func _on_item_list_item_selected(index):
 
 	var texture = ImageTexture.create_from_image(image)
 
-	$UI/TextureRect.texture = texture
+	$TextureRect.texture = texture
 
 
 func save_library():
@@ -96,3 +96,8 @@ func load_library():
 
 	if parsed is Array:
 		brolls = parsed
+
+
+func _unhandled_input(event):
+	if event.is_action_pressed("toggle_ui"):
+		$UI.visible = !$UI.visible
