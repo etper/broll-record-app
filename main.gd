@@ -202,28 +202,28 @@ func _unhandled_input(event):
 				save_library()
 
 			KEY_1:
-				brolls[current_index]["animation"] = "none"
+				set_animation("none")
 
 			KEY_2:
-				brolls[current_index]["animation"] = "zoom_in"
+				set_animation("zoom_in")
 
 			KEY_3:
-				brolls[current_index]["animation"] = "zoom_out"
+				set_animation("zoom_out")
 
 			KEY_4:
-				brolls[current_index]["animation"] = "pan_left"
+				set_animation("pan_left")
 
 			KEY_5:
-				brolls[current_index]["animation"] = "pan_right"
+				set_animation("pan_right")
 
 			KEY_6:
-				brolls[current_index]["animation"] = "float"
+				set_animation("float")
 
 			KEY_7:
-				brolls[current_index]["animation"] = "pulse"
+				set_animation("pulse")
 
 			KEY_8:
-				brolls[current_index]["animation"] = "rotate"
+				set_animation("rotate")
 
 		save_library()
 
@@ -281,3 +281,8 @@ func update_animation_label():
 		label.text = "Animation: %s (ON)" % anim
 	else:
 		label.text = "Animation: %s (OFF)" % anim
+
+func set_animation(anim: String):
+	brolls[current_index]["animation"] = anim
+	anim_time = 0.0
+	save_library()
