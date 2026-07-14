@@ -15,12 +15,20 @@ var base_rotation := 0.0
 
 var anim_time := 0.0
 
+const ANIMATIONS := [
+	"zoom_in",
+	"zoom_out",
+	"pan_left",
+	"pan_right",
+	"float",
+	"pulse",
+	"rotate"
+]
 
 func _ready():
 	load_library()
 	refresh_list()
 	update_animation_label()
-
 
 func _process(delta):
 
@@ -70,10 +78,8 @@ func _process(delta):
 		"none":
 			pass
 
-
 func _on_import_button_pressed():
 	$UI/FileDialog.popup_centered()
-
 
 func _on_file_dialog_files_selected(paths: PackedStringArray):
 
@@ -99,7 +105,6 @@ func _on_file_dialog_files_selected(paths: PackedStringArray):
 	refresh_list()
 	save_library()
 
-
 func refresh_list():
 
 	var list = $UI/ItemList
@@ -108,7 +113,6 @@ func refresh_list():
 
 	for broll in brolls:
 		list.add_item(broll["name"])
-
 
 func _on_item_list_item_selected(index):
 
@@ -144,7 +148,14 @@ func _on_item_list_item_selected(index):
 	base_rotation = $TextureRect.rotation
 
 	anim_time = 0.0
+	
+	var random_anim = ANIMATIONS.pick_random()
 
+	brolls[current_index]["animation"] = random_anim
+	brolls[current_index]["animation_enabled"] = true
+
+	save_library()
+	update_animation_label()
 
 func save_library():
 
@@ -155,7 +166,6 @@ func save_library():
 		return
 
 	file.store_string(JSON.stringify(brolls))
-
 
 func load_library():
 
@@ -183,7 +193,6 @@ func load_library():
 
 			if !broll.has("animation_enabled"):
 				broll["animation_enabled"] = false
-
 
 func _unhandled_input(event):
 
@@ -227,7 +236,6 @@ func _unhandled_input(event):
 
 		save_library()
 
-
 func _on_texture_rect_gui_input(event):
 
 	if event is InputEventMouseButton:
@@ -258,7 +266,6 @@ func _on_texture_rect_gui_input(event):
 
 		$TextureRect.global_position = $TextureRect.get_global_mouse_position() - drag_offset
 		base_position = $TextureRect.position
-
 
 func _on_reset_scale_pressed() -> void:
 
