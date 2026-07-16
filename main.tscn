@@ -52,6 +52,15 @@ offset_right = 825.0
 offset_bottom = 166.0
 text = "Reset Scale"
 
+[node name="CheckButton" type="Button" parent="UI" unique_id=1454490077]
+layout_mode = 0
+offset_left = 628.0
+offset_top = 181.0
+offset_right = 822.0
+offset_bottom = 242.0
+toggle_mode = true
+text = "Random Position"
+
 [node name="ItemList" type="ItemList" parent="UI" unique_id=862693527]
 layout_mode = 0
 offset_left = 22.0
@@ -80,5 +89,6 @@ vertical_alignment = 1
 [connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
 [connection signal="pressed" from="UI/ImportButton" to="." method="_on_import_button_pressed"]
 [connection signal="pressed" from="UI/ResetScale" to="." method="_on_reset_scale_pressed"]
+[connection signal="toggled" from="UI/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="UI/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="files_selected" from="UI/FileDialog" to="." method="_on_file_dialog_files_selected"]

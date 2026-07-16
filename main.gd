@@ -6,6 +6,8 @@ var brolls: Array = []
 
 var current_index := -1
 
+var random_position_on_select := false
+
 var dragging := false
 var drag_offset := Vector2.ZERO
 
@@ -139,7 +141,18 @@ func _on_item_list_item_selected(index):
 	$TextureRect.pivot_offset = $TextureRect.size / 2
 
 	# Reset transform
-	$TextureRect.position = Vector2(790, 349)
+	if random_position_on_select:
+		var viewport = get_viewport_rect().size
+		var tex_size = texture.get_size()
+
+		var margin = 100
+
+		$TextureRect.position = Vector2(
+			randf_range(margin, viewport.x - tex_size.x - margin),
+			randf_range(margin, viewport.y - tex_size.y - margin)
+		)
+	else:
+		$TextureRect.position = Vector2(790, 349)
 	$TextureRect.scale = Vector2.ONE
 	$TextureRect.rotation = 0
 
@@ -153,6 +166,14 @@ func _on_item_list_item_selected(index):
 
 	brolls[current_index]["animation"] = random_anim
 	brolls[current_index]["animation_enabled"] = true
+	
+	if random_position_on_select:
+		$TextureRect.position = get_random_start_position(random_anim)
+	
+	base_position = $TextureRect.position
+	base_scale = Vector2.ONE
+	base_rotation = 0
+	anim_time = 0.0
 
 	save_library()
 	update_animation_label()
@@ -209,6 +230,9 @@ func _unhandled_input(event):
 			KEY_A:
 				brolls[current_index]["animation_enabled"] = !brolls[current_index]["animation_enabled"]
 				save_library()
+				
+			KEY_R:
+				anim_time = 0.0
 
 			KEY_1:
 				set_animation("none")
@@ -293,3 +317,30 @@ func set_animation(anim: String):
 	brolls[current_index]["animation"] = anim
 	anim_time = 0.0
 	save_library()
+
+func get_random_start_position(anim: String) -> Vector2:
+	var margin := 150
+	var viewport := get_viewport_rect().size
+	var x: float
+	var y := randf_range(margin, viewport.y - margin)
+
+	match anim:
+		"pan_left":
+			# Start on the right
+			x = randf_range(viewport.x * 0.6, viewport.x - margin)
+
+		"pan_right":
+			# Start on the left
+			x = randf_range(margin, viewport.x * 0.4)
+
+		"zoom_in", "zoom_out", "pulse", "rotate", "float":
+			# Anywhere
+			x = randf_range(margin, viewport.x - margin)
+
+		_:
+			x = viewport.x * 0.5
+
+	return Vector2(x, y)
+
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	random_position_on_select = toggled_on
